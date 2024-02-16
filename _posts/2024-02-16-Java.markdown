@@ -1,0 +1,51 @@
+---
+layout: post
+title: 잔말말고 외우기
+date: 2024-02-16 14:12:20 +0900
+description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
+img: springboot4.png # Add image post (optional)
+fig-caption: mac.jpg
+tags: [BackEnd]
+---
+# 잔말말고 외우기
+
+### 영어단어
+```영어단어
+internal 내부의
+
+once per ,,, ~당 한번
+
+once per request 요청 당 한번
+
+configuration 환경설정, 배열, 배치
+
+authority 지휘권, 권한, 인가
+
+authorized 인정받은, 권한을 부여받은, 올바른
+
+permit 허용하다, 허락하다, 가능하게 하다, 허가증
+
+absatract 추상적인
+
+credentials 자격
+
+principal 주요한, 주된
+
+validate 입증하다, 인증하다, 승인하다.
+
+```
+
+
+
+### 메서드 체이닝 - 빌터 패턴  
+```java
+.id(dto.getId())
+.title(dto.getTitle()) 
+.content(dto.getContent()) 
+.writer(writer)
+```
+와 같이 각각의 메서드 호출이 하나의 매개변수를 설정하는 역할을 합니다.  
+![alt text](../assets/img/메서드체이닝.png)
+
+
+
