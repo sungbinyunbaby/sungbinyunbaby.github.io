@@ -1,4 +1,4 @@
-title: Hello, world! I'm David Freeman
+title: Hello, world! I'm sungbin Youn
 description: > # this means to ignore newlines until "baseurl:"
   this is my blog.
 permalink: ':title/'
@@ -8,7 +8,7 @@ site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings
 author: sungbin Youn # add your name
-author-img: c:\Users\tjdql\OneDrive\바탕 화면\바탕화면\smile.jpg # add your photo
+author-img: smile.jpg # add your photo
 about-author: Developer # add description
 social-twitter: # add your Twitter handle
 social-facebook: # add your Facebook handle
