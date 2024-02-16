@@ -41,7 +41,9 @@ tags: [BackEnd]
 
 [24.02.07 Querydsl동적쿼리](Querydsl동적쿼리.md)
 
-[24.02.07 QuerydslWithSpringDataJPA](../springboot/QuerydslWithSpringDataJPA.md)
+[24.02.07 QuerydslWithSpringDataJPA](QuerydslWithSpringDataJPA.md)
 
 
-[24.02.07 QuerydslWithSpringDataJPA](C:\Users\tjdql\OneDrive\바탕화면\BackSchool\sungbinyunbaby.githup.io)
+[24.02.07 QuerydslWithSpringDataJPA](../_drafts/QuerydslWithSpringDataJPA)
+
+[24.02.07 QuerydslWithSpringDataJPA](../QuerydslWithSpringDataJPA)
