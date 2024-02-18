@@ -11,12 +11,14 @@ tags: [BackEnd]
 
 ![security_Base](../assets/img/security/security_Base.png)
 
+### 순서 
 1. UsernamepasswordAuthenticationFiler 구현 - 로그인 진행
 2. AuthenticationManager에 전달 - 데이터베이스로 부터 회원 정보를 가져와 검증 진행.
 3. 
     1. 검증이 성공을 한다면 successfulAuthentication이 동작. - 동작을 할 때 jwt를 생성을 해서 사용자게 응답을 해주면 된다.
     2. 검증에 실패를 한다면 unsuccessfulAuthentication이 동작 - jwt를 생성하지 않고 401 에러를 내준다.
 
+### 회원가입, 로그인, jwt발급, jwtFilter 설정
 
 1. jwt 의존성 설정
     ```java
@@ -49,7 +51,7 @@ tags: [BackEnd]
     2. 엔티티, Repository 만든 후 연결.
 
 4. 회원가입 로직 구현
-    ![회원가입로직](../assets/img/security/회원가입%20로직.png.png)
+    ![회원가입로직](../assets/img/security/회원가입%20로직.png)
     1. JoinDto 만들기 - username, password
     2. JoinController 만들기.
     3. JoinService 만들기 - userRepository와 BCryptPasswordEncoder 의존성 받아서 회원가입 메서드 만들기 > 입력받은 joinDto를 userEntity에 저장.
