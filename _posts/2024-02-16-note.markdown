@@ -27,13 +27,35 @@ permit 허용하다, 허락하다, 가능하게 하다, 허가증
 
 absatract 추상적인
 
-credentials 자격
+credentials 자격 => 프로그래밍에서 password
 
-principal 주요한, 주된
+principal 주요한, 주된 => 프로그래밍에서 username
 
 validate 입증하다, 인증하다, 승인하다.
 
+submission 항복, 제출, 진술
+
+present 현재, 선물
+
+presentation 제출, 발표, 프리젠테리션
+
+implement 시행하다, 도구, 구현
+
+immutable 불변의, 변경할 수 없는
+
+properties 속성
+
+respective 해당, 속하는
+
+behaviour 처신, 행동
+
 ```
+
+### 시큐리티
+ # 필터
+    UsernamePasswordAuthenticationToken  
+    extends AbstractAuthenticationToken // Base Base class for Authentication objects.    
+    implements Authentication, CredentialsContainer
 
 
 
