@@ -94,6 +94,7 @@ public class ArticleTempletClient {
 ```
 
 ### Rest Client_readAll
+readAll을 받으려면 배열을 사용해 받는다.
 1. 배열로 getForObject
     ```java
     //1. 배열로 getForObject
@@ -136,6 +137,7 @@ public class ArticleTempletClient {
     ```
 
 4. Object로 응답 받기.
+    응답 자료형을 모르면 Object.
     getForObject - Object: 응답 자체를 Object로 받는다.  
     List<> 형태로 들어온다. 단점은 내부의 타입을 모른다.
 
