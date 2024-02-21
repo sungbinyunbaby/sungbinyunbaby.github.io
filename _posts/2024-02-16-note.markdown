@@ -49,6 +49,20 @@ respective 해당, 속하는
 
 behaviour 처신, 행동
 
+credentials 자격, 자격증
+
+activity 움직임, 활동
+
+detect 발견하다, 알아내다
+
+account 계좌, 여기다
+
+secure 안심하는
+
+expire 만료되다, 끝나다
+
+access 접근, 접속하다, 입장
+
 ```
 
 ### 시큐리티
