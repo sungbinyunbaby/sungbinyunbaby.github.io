@@ -65,6 +65,15 @@ access 접근, 접속하다, 입장
 
 declare 선언하다, 선포하다
 
+initialized 초기 내용을 설정하다, initializes 초기화.
+
+execution 실행, 수행, 처형, 사형
+
+enables -를 할 수 있게 하다, (무엇을) 가능하게 하다.
+
+perform 수행하다
+
+retrieve 되찾아오다, 회수하다, 개선한다.
 ```
 
 ### 시큐리티

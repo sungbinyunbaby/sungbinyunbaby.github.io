@@ -54,7 +54,7 @@ tags: [BackEnd]
             private String clientSecret;
             }
             ```
-        2. dfsdffs
+        2. 토큰을 만들어준다.
             ```java
             public AccessTokenDto getAccessToken() {
             // form 요청을 보낼 때는 같은 이름을 가진 값이 여러개 일 수 있어서,,,
@@ -201,4 +201,106 @@ SpotifyTokenService에서 RestClient로 API 요청을 날릴 과정을 만들어
 
     ![Spotify_Search_Success](../assets/img/Spotify/Spotify_search_success.png)
 
-         
+### 수정
+SpotifyToenService.getAccesstoken()은 요청이 들어올 때 마다 토큰을 Spotify에 요구 할 것이다.  
+Spotify 정책 상 한번 토큰이 만들어지면 1시간 동안 토큰을 사용 가능하니깐 1시간 동안은 계속 사용해주는게 좋을 것이다.  
+계속 만들면 비용이 늘어나 서비스 측면에서 좋지않다. => 
+
+- 문제
+    1. 토큰을 과하게 재발급한다.
+
+1. 문제 1번 해결: 50분 동안 토큰을 사용하고 50분이 지나면 새로운 토큰을 발급해보자.
+    1. 토큰이 계속 만들면 반복적으로 객체가 생성되는게 Body 이니까 Body를 필드로 보내자. => 비용절감.
+    2. 토큰을 발급한 시간을 알려주는 필드를 추가하자. private String lastIssued;
+    3. 현재까지 메서드 요청이 들어오면 Bearer 토큰을 발급해주는 형태였다면 이제 토큰을 저장하고 api를 요청하는 주체한테 새로운 토큰 대신 여기에 저장을 해놓은 토큰을 주자. private String token;
+    3. 새로운 reissued() 메서드를 추가하여 토큰을 받고, lastIssued = LocalDateTime.now()를 추가해 토큰이 만들어지면 그 시간을 넣어준다. 그러면 토큰이 발생한 시간이 기입될 것이다.
+    4. getToken()메서드를 추가하여 토큰이 발급된지 얼마나 지났는지 확인하고 50분이 지났으면 reIssued()를 호출해 새로운 토큰을 발급 받도록 하고, 50분이 지나지 않았으면 저장해 놓은 토큰을 반환한다. => 새로운 토큰이 요청이 왔어도 새로 만들지 않고 만들어 놓은 토큰을 줄 수 있어 비용을 절감할 수 있다.
+
+    ```java
+    @Component
+    @Slf4j
+    public class SpotifyTokenService {
+        // Request Body가 변하지 않음으로 필드로 올리자.
+        // 메서드에서 초기화를 하면 계속해서 새 객체가 만들어지기 때문에,
+        // 생성자에 초기화 하자.
+        private final MultiValueMap<String, Object> parts;
+
+        // 마지막으로 토큰을 발급한 시점.
+        // 토큰을 50분마다 새로 발급하기 위해서 만들어 준다.
+        private LocalDateTime lastIssued;
+
+        // 현재 사용중인 Bearer Token이 들어있는 곳.
+        // "Bearer " + tokenService.getAccessToken().getAccessToken();이 마음에 안 들어서 깔끔하게 만들기 위함.
+        // 현재까지 메서드 요청을 하면 Bearer 토큰을 발급해주는 형태였다면,
+        // 이제 토큰을 여기에 토큰을 저장을 하고 api를 요청하는 주체한테 여기에 저장을 해놓은 토큰을 주겠다.
+        private String token;
+
+        private final RestClient authRestClient;
+
+        public SpotifyTokenService(
+    //            RestClient authRestClient,
+                @Value("${spotify.client-id}")
+                String clientId,
+                @Value("${spotify.client-secret}")
+                String clientSecret
+        ) {
+            this.authRestClient = RestClient.builder() // 이 RestClient는 얘만 사용할건데 굳이 빈으로 등록하지 말고 얘만 들고있자.
+                    .baseUrl("https://accounts.spotify.com/api/token")
+                    .build();
+            // 항상 같은 Request Body를 보내게 됨으로,
+            // 해당 Request Body는 저장을 해두자.
+            this.parts = new LinkedMultiValueMap<>();
+            parts.add("grant_type", "client_credentials");
+            parts.add("client_id", clientId);
+            parts.add("client_secret", clientSecret);
+
+            reissued(); // 처음으로 토큰이 만들어질 때 token과 lastIssued가 기록된다.
+        }
+
+        // getAccessToken()토큰을 만든다.
+        // 문제점: 메서드가 실행될 때 마다 AccessToken이 재발행 된다. => 과한 토큰 재발급
+        // => 바디는 항상 같을 것이므로 고정해두자!
+        // 1. 지역변수에서 전역변수에서 해결한다.
+        @Deprecated //해당 요소(클래스, 메서드, 필드 등)가 더 이상 사용되지 않음을 나타냅니다.
+        public AccessTokenDto getAccessToken() {
+            // form contentType 채우기.
+            return authRestClient.post()
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED) // context-form구조.
+                    .body(parts)
+                    .retrieve()
+                    .body(AccessTokenDto.class);
+        }
+
+        // Token을 재발행하는 메서드
+        // 현재 사용중인 토큰을 반환하는 메서드
+        private void reissued() {
+            log.info("issuing access token");
+            // 1. 토큰을 발행 받는다.
+            AccessTokenDto response = authRestClient.post()
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .body(parts)
+                    .retrieve()
+                    .body(AccessTokenDto.class);
+
+            // 2. 내가 토큰을 받은 시간을 기록한다. 50분마다 새로 발급 받기 위해서.
+            lastIssued = LocalDateTime.now();
+            // 3. 새로 발급 받은 토큰을 기록한다. 필드에 토큰에 저장한다.
+            token = response.getAccessToken();
+            log.info("new access token is: {}", token);
+        }
+
+        // 현재 사용중인 Token을 반환하는 메서듬
+        public String getToken() {
+            log.info("last Issue: {}", lastIssued); // 토큰 시작 시간.
+            log.info("Time passed: {} mins", ChronoUnit.MINUTES.between(lastIssued, LocalDateTime.now())); // 토큰 받은지 얼마나 지났나 확인하기 위함.
+            // 만약 마지막에 발급 받은지 50분이 지났면,
+            if (lastIssued.isBefore(LocalDateTime.now().minusMinutes(50)))
+                // 그럴경우 재발행
+                reissued();
+
+            // 재발행을 했던 안했던 토큰을 돌려준다.
+            return token;
+        }
+    }
+    
+    ```
