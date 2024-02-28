@@ -139,5 +139,72 @@ public class ServiceService {
 
 ![Misson_02_Login](../assets/img/Misson_02/Misson_02_Change_Authorization.png)  
 
+# 일반 사용자는 사업자 등록번호를 전달해 사없자 사용자르 전환신청을 할 수 있다.
+1. 우선 간단하게 일반 사용자만 접근할 수 있는 url에 사업자 등록번호를 전달하면 사엽자 사용자로 업그레이드 하도록 하자.
+2. 그 후 Validation을 사용하여 글자 수 를 사업자 등록번호 만큼 제한 설정한다. validation을 사용하면 이거만 고치는거니 groups이 필요하겠지만 코드의 복잡도가 올라가고 지저분하다는 것을 생각하여 폼 객체와 수정용 폼 객체를 분해해서 DTO를 사용해서 수정하자.
+
+
+# 중고거래 중개하기 - 중고물건 게시글 올리기
+- 물품 등록
+    - 일반 사용자는 중고 거래를 목적으로 물품에 대한 정보를 등록할 수 있다.
+        - 제목, 설명, 대표 이미지, 최소 가격이 필요하다.
+            - <span style="color:red"> 대표 이미지는 반드시 함께 등록될 필요는 없다. => 추후 진행 예정
+            - 다른 항목은 필수이다.
+            - 최초로 물품이 등록될 때, 중고 물품의 상태는 **판매중** 상태가 된다.
+    - 등록된 물품 정보는 비활성 사용자를 제외 누구든지 열람할 수 있다.(webSecurityConfig에서 진행.)
+        - ~~등록자의 광역자치단체 단위의 지역 정보가 같이 기재된다.~~
+        - 사용자의 상세 정보는 공개되지 않는다.
+    - 등록된 물품 정보는 작성자가 수정, 삭제가 가능하다.
+
+1. RegisterEntity
+    - User table과 many to one 연관관계 생성.
+    - title, content, minPrice, (picture) 필요.
+    - <span style="color:red">현재는 picture을 빼고 진행하겠음.
+2. ReisterDto
+    - 응답을 dto로 설정을 할 것이다. fromEntity를 만들자.
+3. RegisterRepository
+4. ReisterController - 중고 물품 등록.
+    - 게시물 생성 요청.
+5. RegisterService
+    - 요청 받은 데이터를 User에 저장.
+    - dto에 저장해서 반환.
+
+![Register_addRegisterItem](../assets/img/Misson_02/Misson02_Register_addRegisterItem.png)
+
+
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_Repository.png)
+
+6. RegisterController - 등록한 중고 물품 확인, inactive 권한말고 다 볼 수 있음.
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_RegisterBoards.png)
+
+7. 등록된 물품 정보는 작성자가 수정, 삭제가 가능하다.
+게시글의 작성자인지 확인하는 메서드 필요.
+- 업데이트
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_Update_01.png)
+
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_Update_02.png)
+
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_Update_03.png)
+
+- 삭제
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_delete_01.png)
+
+![Register_Repository](../assets/img/Misson_02/Misson02_Register_delete_02.png)
+
+
+
+
+- 구매 제안
+    - **물품을 등록한 사용자**와 **비활성 사용자** 제외, 등록된 물품에 대하여 구매 제안을 등록할 수 있다.
+    - 등록된 구매 제안은 **물품을 등록한 사용자**와 **제안을 등록한 사용자**만 조회가 가능하다.
+        - **제안을 등록한 사용자**는 자신의 제안만 확인이 가능하다.
+        - **물품을 등록한 사용자**는 모든 제안이 확인 가능하다.
+    - **물품을 등록한 사용자**는 ****등록된 구매 제안을 수락 또는 거절할 수 있다.
+        - 이때 구매 제안의 상태는 **수락** 또는 **거절**이 된다.
+    - **제안을 등록한 사용자**는 자신이 등록한 제안이 수락 상태일 경우, 구매 확정을 할 수 있다.
+        - 이때 구매 제안의 상태는 **확정** 상태가 된다.
+        - 구매 제안이 확정될 경우, 대상 물품의 상태는 **판매 완료**가 된다.
+        - 구매 제안이 확정될 경우, 확정되지 않은 다른 구매 제안의 상태는 모두 **거절**이 된다.
+
 
 
