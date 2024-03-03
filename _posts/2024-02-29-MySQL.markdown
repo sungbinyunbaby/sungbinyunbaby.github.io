@@ -1,0 +1,55 @@
+---
+layout: post
+title: MySQL
+date: 2024-02-29 14:12:20 +0900
+description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
+img:  # Add image post (optional)
+fig-caption: mac.jpg
+tags: [BackEnd]
+---
+# My SQL
+- DB 구조 정의할 때 중요한 점:
+    만들려는 서비스의 스펙과 데이터의 일관성, 편의성 , 확장성 등등을 종합적으로 고려하여 DB스키마를 적절하게 정의하는 것이 중요하다.  
+    시니어와 주니어의 가장 큰 차이점.
+
+- alter table:
+    table의 schema를 변경하고 싶을 때 사용.  
+    서비스 중인 table의 schema를 변경할 수 있다. 조심해야 한다.  
+    변경 잡업 때문에 서비스의 백엔드에 영향이 없을지 검토한 후에 변경하는 것이 중요하다.
+
+- table을 삭제할 때: drop table
+
+- 문자열
+    - 고정크기 문자열: char(n)  
+        저장될 문자열의 길이가 최대 길이보다 작으면  나머지를 space로 채워서 저장한다.  
+        mysql에서는 varchar보다 char을 더 권장한다. 시간적인 성능이 char가 더 좋기 때문에.
+    - 가변 크기 문자열: varchar(n) (n <= 65,535)
+        저장될 문자열의 길이만큼 저장한다.
+    - 사이즈가 큰 문자열: text, midiumtext, longtext
+        varchar보다 큰거는 midiumtext, longtext이다.  
+        text는 varchar와 동일하거나 저 작은 길이를 제공한다.
+- 날짜와 시간
+    - 날짜: date, yyyy-mm-dd
+    - 시간: time, hh:mm:ss or hhh:mm:ss
+    - 날짜와 시간: datetime, timestamp(time-zone의 영향을 받는다.)
+
+- 그 외: mysql은 boolean 타입이 없다. tinyint(1byte)를 통해서 boolean 타입을 0과 1로 대체해서 사용.
+
+- unique의 null을 허용한다.
+
+- check constranint: 튜플의 값을 제한하고 싶을 때 사용.
+
+- 이름을 명시하면 에러 상황에서 어디에 에러가 났는지 쉽게 알아챌 수 있다.
+    age Int CONSTRAINT age_over_20 CHECK(age > 20) // 여기서 age_over_20이 이름을 정한 것이다.  
+    에러시: age_over_20 is violated. 이렇게 나온다.
+
+- foreign key 설정
+    - FOREIGN KEY (dept_id) references DEPARTMENT(id) on delete set null on update casecade
+    - casecade: 참조값의 삭제/변경을 그대로 반영
+    - set null: 참조갑이 삭제/변경시 null로 변경
+    - restrict: 참조값이 삭제/변경되는 것을 금지
+    - no action: restrict와 유사, 트랜잭션이 일어나는 동안은 참조값이 삭제/변경되는 것을 허용하지만 트랜잭션이 끝났을 때 여전히 제약을 위반하고 있다면 그것은 금지한다.
+    - set default: 참조값이 삭제/변경 시 defalut 값으로 변경, mysql에서는 제대로 지원하지 않는다.
+
+- tranzation:
+    한 트랜젝션 안에 여러개의 sql문이 들어갈 수 있다.

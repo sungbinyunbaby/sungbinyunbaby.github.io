@@ -198,13 +198,19 @@ public class ServiceService {
     - **물품을 등록한 사용자**와 **비활성 사용자** 제외, 등록된 물품에 대하여 구매 제안을 등록할 수 있다.
     - 등록된 구매 제안은 **물품을 등록한 사용자**와 **제안을 등록한 사용자**만 조회가 가능하다.
         - **제안을 등록한 사용자**는 자신의 제안만 확인이 가능하다.
+        ![Register_Repository](../assets/img/Misson_02/Misson02_구매제안한사람.png)
         - **물품을 등록한 사용자**는 모든 제안이 확인 가능하다.
+        ![Register_Repository](../assets/img/Misson_02/Misson02_판매자는모든구매제안을볼수있다..png)
     - **물품을 등록한 사용자**는 ****등록된 구매 제안을 수락 또는 거절할 수 있다.
         - 이때 구매 제안의 상태는 **수락** 또는 **거절**이 된다.
+        ![Register_Repository](../assets/img/Misson_02/Misson02_제안거절.png)  
+        ![Register_Repository](../assets/img/Misson_02/Misson02_제안결정.png)
     - **제안을 등록한 사용자**는 자신이 등록한 제안이 수락 상태일 경우, 구매 확정을 할 수 있다.
         - 이때 구매 제안의 상태는 **확정** 상태가 된다.
         - 구매 제안이 확정될 경우, 대상 물품의 상태는 **판매 완료**가 된다.
         - 구매 제안이 확정될 경우, 확정되지 않은 다른 구매 제안의 상태는 모두 **거절**이 된다.
+        ![Register_Repository](../assets/img/Misson_02/Misson02_구매확정하면다른제안상태거절.png)  
+        ![Register_Repository](../assets/img/Misson_02/Misson02_구매확정을하면물품판매완료가된다..png)
 
 
 
