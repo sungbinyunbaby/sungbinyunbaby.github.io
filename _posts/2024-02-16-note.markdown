@@ -74,6 +74,78 @@ enables -를 할 수 있게 하다, (무엇을) 가능하게 하다.
 perform 수행하다
 
 retrieve 되찾아오다, 회수하다, 개선한다.
+
+consent 동의, 합의
+
+decide 결정하다.
+
+deci
+
+reject 거절하다, 거부하다
+
+register 등록하다, 기록
+
+apply 신청하다
+
+application 적용, 응용
+
+consumer 소비자
+
+explanation 설명
+
+purchase 구입, 구매
+
+proposal 제안, 제의
+
+suggest 제안하다, 추천하다
+
+implement 구현
+
+indicate 나타내다(보여주다)
+
+whether -인지(아닌지(아니면)-인지)
+
+implement 시행하다, 구현하다
+
+equivalent 동등한, -에 대응하는 것, 등가물
+
+reference 말하기, 언급, 참고, 참조
+
+implements an equivalence relation 동등한 관계를 구현한다.
+on non-null object reference null이 아닌 객체에 대한. null이 아닌 객체 참조.
+
+모음으로 시작하는 단어 앞에는 an이 붙는다.
+
+영어 모음: a e i o u 발음할 때 입술ㄹ이나 혀가 다른 부분에 닿지 않고 공기만으로 발음되는 글자를 말한다.
+
+patition 분할, 칸막이
+
+element 요소, 성분, 부류
+
+operate 작동되다, 조작하다, 가동시키다.
+
+each other 서로
+
+substitute 대리자, 대신하다
+
+purpose 목적, 용도, 의도
+
+least 최소의
+
+Members of an equivalence class are substitutable for each other, at least for some purposes.  
+동등한 클래스의 구성원들은 서로 대체할 수 있다, 최소한의 어떤 목적을 위해  
+동등한 클래스의 구성원들은 최소한의 어떤 목적을 위해 서로 대체할 수 있다.
+
+parameter 한도
+
+which 어느
+
+compare 비교하다, 비유하다
+
+which to compare 비교해야 할 것
+
+the reference object with which to compare. 비교 대상이 되는 참조 객체.  
+비교할 대상 객체와 비교하기 위한 참조 객체
 ```
 
 ### 시큐리티
