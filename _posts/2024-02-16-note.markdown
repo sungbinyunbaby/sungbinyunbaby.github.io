@@ -146,6 +146,18 @@ which to compare 비교해야 할 것
 
 the reference object with which to compare. 비교 대상이 되는 참조 객체.  
 비교할 대상 객체와 비교하기 위한 참조 객체
+
+require 필요하다 요구하다
+
+requirement 필요, 필요조건
+
+specified 스페셔파이 명시된
+
+priority 우선, 우선사항, 우선권
+
+vote 표, 투표
+
+candidate 후보자, 지원자
 ```
 
 ### 시큐리티
